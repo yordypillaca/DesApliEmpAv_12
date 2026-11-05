@@ -54,7 +54,36 @@ app.UseCors("Front");
 app.UseAuthorization();
 app.MapControllers();
 
+await PrepararBase(app);
 app.Run();
+
+static async Task PrepararBase(WebApplication app)
+{
+    var ruta = Path.Combine(app.Environment.ContentRootPath, "TallerDB.sql");
+    if (!File.Exists(ruta))
+        return;
+
+    await using var scope = app.Services.CreateAsyncScope();
+    var db = scope.ServiceProvider.GetRequiredService<TallerContext>();
+    var conexion = db.Database.GetDbConnection();
+    await conexion.OpenAsync();
+    try
+    {
+        await using var consulta = conexion.CreateCommand();
+        consulta.CommandText = """SELECT to_regclass('public."Clientes"')""";
+        var tabla = await consulta.ExecuteScalarAsync();
+        if (tabla is not null and not DBNull)
+            return;
+
+        await using var comando = conexion.CreateCommand();
+        comando.CommandText = await File.ReadAllTextAsync(ruta);
+        await comando.ExecuteNonQueryAsync();
+    }
+    finally
+    {
+        await conexion.CloseAsync();
+    }
+}
 
 static string NormalizarConexion(string raw)
 {

@@ -29,4 +29,4 @@ Swagger queda publicado en `/swagger`.
 
 ## Publicación
 
-La API y la base van en [Render](https://render.com), plan gratuito, sin tarjeta. El servicio web construye el `Dockerfile` y queda en HTTPS. PostgreSQL está en el mismo proveedor, así la API no depende de una base local. La cadena llega por la variable `ConnectionStrings__Taller` y no se guarda en el repositorio. La base gratuita de Render caduca a los 30 días; alcanza para la revisión del trabajo. El archivo `render.yaml` describe los dos servicios.
+La API y la base van en [Render](https://render.com), plan gratuito, sin tarjeta. El servicio web construye el `Dockerfile` y queda en HTTPS. PostgreSQL está en el mismo proveedor, así la API no depende de una base local. La cadena llega por la variable `ConnectionStrings__Taller` y no se guarda en el repositorio. Si esa base está vacía, al arrancar se ejecuta `TallerDB.sql`. La base gratuita de Render caduca a los 30 días; alcanza para la revisión del trabajo. El archivo `render.yaml` describe los dos servicios.
