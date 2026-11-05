@@ -70,9 +70,9 @@ static async Task PrepararBase(WebApplication app)
     try
     {
         await using var consulta = conexion.CreateCommand();
-        consulta.CommandText = """SELECT to_regclass('public."Clientes"')""";
+        consulta.CommandText = """SELECT to_regclass('public."Clientes"')::text""";
         var tabla = await consulta.ExecuteScalarAsync();
-        if (tabla is not null and not DBNull)
+        if (tabla is string)
             return;
 
         await using var comando = conexion.CreateCommand();
