@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: taller-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /openapi/v1.json
+    envVars:
+      - key: ConnectionStrings__Taller
+        fromDatabase:
+          name: taller-db
+          property: connectionString
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+
+databases:
+  - name: taller-db
+    plan: free
+    databaseName: tallerdb
+    user: taller

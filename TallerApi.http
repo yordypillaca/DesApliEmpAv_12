@@ -1,0 +1,137 @@
+@host = http://localhost:5137
+
+### Clientes
+GET {{host}}/api/clientes
+
+###
+GET {{host}}/api/clientes/1
+
+###
+GET {{host}}/api/clientes/1/ordenes
+
+###
+POST {{host}}/api/clientes
+Content-Type: application/json
+
+{
+  "documento": "80991234",
+  "nombre": "Rosa Huamán",
+  "telefono": "956123478",
+  "correo": "rosa.huaman@correo.com"
+}
+
+###
+PUT {{host}}/api/clientes/4
+Content-Type: application/json
+
+{
+  "id": 4,
+  "documento": "80991234",
+  "nombre": "Rosa Huamán Díaz",
+  "telefono": "956123478",
+  "correo": "rosa.huaman@correo.com"
+}
+
+###
+DELETE {{host}}/api/clientes/4
+
+### Órdenes
+GET {{host}}/api/ordenes
+
+###
+GET {{host}}/api/ordenes?clienteId=1&estado=Recibida&buscar=ABC
+
+###
+GET {{host}}/api/ordenes/1
+
+###
+POST {{host}}/api/ordenes
+Content-Type: application/json
+
+{
+  "numero": "OS-1100",
+  "placa": "XYZ-321",
+  "descripcion": "Revisión de suspensión delantera",
+  "estado": "Recibida",
+  "costoEstimado": 250.00,
+  "fechaIngreso": "2026-11-04",
+  "clienteId": 2
+}
+
+###
+PUT {{host}}/api/ordenes/5
+Content-Type: application/json
+
+{
+  "id": 5,
+  "numero": "OS-1100",
+  "placa": "XYZ-321",
+  "descripcion": "Cambio de amortiguadores delanteros",
+  "estado": "EnReparacion",
+  "costoEstimado": 480.00,
+  "fechaIngreso": "2026-11-04",
+  "clienteId": 2
+}
+
+###
+DELETE {{host}}/api/ordenes/5
+
+### Respuestas de error
+GET {{host}}/api/ordenes/999
+
+###
+POST {{host}}/api/ordenes
+Content-Type: application/json
+
+{
+  "numero": "OS-1101",
+  "placa": "XYZ-321",
+  "descripcion": "Cambio de batería",
+  "estado": "Recibida",
+  "costoEstimado": 320.00,
+  "fechaIngreso": "2026-11-04",
+  "clienteId": 999
+}
+
+###
+POST {{host}}/api/ordenes
+Content-Type: application/json
+
+{
+  "numero": "OS",
+  "placa": "A",
+  "descripcion": "x",
+  "estado": "Cerrada",
+  "costoEstimado": -5,
+  "fechaIngreso": "2026-11-04",
+  "clienteId": 1
+}
+
+###
+PUT {{host}}/api/clientes/1
+Content-Type: application/json
+
+{
+  "id": 2,
+  "documento": "40123456",
+  "nombre": "Marco Quispe",
+  "telefono": "912345678",
+  "correo": "marco.quispe@correo.com"
+}
+
+###
+POST {{host}}/api/clientes
+Content-Type: application/json
+
+{
+  "documento": "45678912",
+  "nombre": "Otro cliente",
+  "telefono": "900111222",
+  "correo": "otro@correo.com"
+}
+
+###
+DELETE {{host}}/api/clientes/1
+
+###
+DELETE {{host}}/api/ordenes/3

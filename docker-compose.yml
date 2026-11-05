@@ -1,0 +1,16 @@
+services:
+  db:
+    image: postgres:16
+    container_name: taller-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: TallerDB
+    ports:
+      - "5433:5432"
+    volumes:
+      - taller-data:/var/lib/postgresql/data
+      - ./TallerDB.sql:/docker-entrypoint-initdb.d/TallerDB.sql:ro
+
+volumes:
+  taller-data:
