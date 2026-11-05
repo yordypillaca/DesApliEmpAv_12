@@ -68,6 +68,7 @@ static string NormalizarConexion(string raw)
     var clave = info.Length > 1 ? Uri.UnescapeDataString(info[1]) : "";
     var baseDatos = uri.AbsolutePath.Trim('/');
     var puerto = uri.IsDefaultPort ? 5432 : uri.Port;
+    var ssl = uri.Host.Contains('.') ? "Require" : "Prefer";
 
-    return $"Host={uri.Host};Port={puerto};Database={baseDatos};Username={usuario};Password='{clave.Replace("'", "''")}';SSL Mode=Require;Trust Server Certificate=true";
+    return $"Host={uri.Host};Port={puerto};Database={baseDatos};Username={usuario};Password='{clave.Replace("'", "''")}';SSL Mode={ssl};Trust Server Certificate=true";
 }
